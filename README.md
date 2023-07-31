@@ -74,7 +74,6 @@ SSL证书的路径。接受的格式为 x509 ASCII PEM。
 发送 keepalive 数据包（某些NAT可能需要这样做）。
 默认值: 0 (已禁用)
 
-
 # User sections
 
 "accs"字段注释：
@@ -90,7 +89,7 @@ SSL证书的路径。接受的格式为 x509 ASCII PEM。
       upload
 
 创建新目录，存储新文件。Append、rename 和 delete 已禁用。
-      
+
       admin
 
 所有已启用的功能。
@@ -99,39 +98,60 @@ SSL证书的路径。接受的格式为 x509 ASCII PEM。
 
 配置文件的示例可以在源目录中以 fftp.conf 的形式找到。
 
-# Build 
+# Build
 
 * LightFTP 提供了完整的源代码，用 C 编写；
 * 为了在Windows中从源代码构建，您需要 Cygwin 环境 (https://www.cygwin.com/) 安装了 GNU make、gnutls 和 pthreads 包。还要确保 Cygwin-bin 文件夹设置在系统范围的PATH 变量中（例如PATH=SomeOfYourOtherValues；C:\Cygwin\bin；C:\Cygwin/usr/bin）。要构建可执行文件，请在 Release 目录中运行 make 命令；
 * 为了在 Linux 中从源代码构建，您需要 GCC C编译器，请在 elease 目录中运行 make 命令。LigthFTP 使用 GnuTLS，请确保安装了头文件（libgnutls-dev或GnuTLS-dev）。
 
-### Example for Linux Mint 19.3/Ubuntu 18.04
+### Linux Mint 19.3/Ubuntu 18.04 示例
 
 您需要安装 GCC 和 Make。如果没有安装它们，您可以将它们作为构建基本包的一部分进行安装：
 
       sudo apt install build-essential
-      
+
 LightFTP 使用 GnuTLS 库。在编译 LightFTP 之前需要安装它。要安装它，请打开终端并使用：
 
       sudo apt install gnutls-dev
-	  
+
 或者，如果不起作用，请尝试：
 
       sudo apt install libgnutls28-dev  
-      
+
 您可以从下载源 https://github.com/hfiref0x/LightFTP/releases 或者使用 git。
 
 如果您想使用 git，但没有安装 git，请先安装：
 
       sudo apt install git
-      
+
 接下来使用以下内容:
 
       git clone https://github.com/hfilef0x/lightftp
       cd lightftp/Source/Release
       make
-      
+
 在此目录下你可以得到可运行二进制文件 fftp。下一步设置 ftp 配置，配置文件为 Bin/fftp.conf。设置端口、帐户、日志文件路径（如果需要，可以选择）、证书路径（如果要使用）等。
+
+### 在 Docker 中搭建 LightFTP 服务器
+
+我在当前目录下编写了一个针对 LightFTP 的 Dockerfile 脚本，您可以通过以下命令生成镜像：
+
+      sudo docker buildx build -t lightftp:7.31 ./
+
+然后通过以下命令生成并进入 LightFTP 的容器：
+
+      sudo docker run -itd --name lightftp_7.31 -p 8000:21 lightftp:7.31 /bin/bash
+      sudo docker exec -it lightftp_7.31 /bin/bash
+
+在容器内部，您可以通过此命令来运行 LightFTP 服务器（这里默认的IP是172.17.0.3，端口是21。如果您要修改，请修改 LightFTP/Source/Release/fftp.conf 文件）：
+
+      ./Source/Release/fftp Source/Release/fftp.conf
+
+打开另外一个终端，用 telnet 连接 LightFTP 服务器：
+
+      telnet 172.17.0.3 21
+
+登录 LightFTP 的用户名和密码 请见 LightFTP/Source/Release/fftp.conf 文件中所写。
 
 # Old Windows version
 
