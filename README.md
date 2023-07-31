@@ -89,7 +89,7 @@ SSL证书的路径。接受的格式为 x509 ASCII PEM。
 
       upload
 
-创建新目录，存储新文件。Append、rename and delete已禁用。
+创建新目录，存储新文件。Append、rename 和 delete 已禁用。
       
       admin
 
