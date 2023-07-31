@@ -3,140 +3,139 @@
 # LightFTP
 * Small x86-32/x64 FTP Server
 
-# System Requirements
+# 系统要求
 
-* x86-32/x64 POSIX compliant OS, e.g. Linux.
-* x86-32/x64 Windows 7/8/8.1/10 with Cygwin (see Build section of this readme).
-* No admin/root privileges required. FTP server must be allowed in firewall.
+* x86-32/x64 POSIX 兼容操作系统，例如 Linux。
+* x86-32/x64 Windows 7/8/8.1/10 和 Cygwin（请参阅 readme 的"build"部分）。
+* 不需要管理员 /root 权限。防火墙中必须允许 FTP 服务器。
 
-# Configuration
+# 配置
 
-Stored in fftp.conf file, contain configuration section named ftpconfig and number of sections describing users and their privileges. 
+保存在 fftp.conf 文件中，包含 ftpconfig 的配置部分和以及描述 User 的部分。 
 
 #### [ftpconfig]
 
       port
 
-Port number to bind the server to.
-Default: 21
+要将服务器绑定到的端口号。
+默认值: 21
 
       maxusers
 
-Maximum connections count to the server, that can be established simultaneously.
-Default: 1
+可以同时建立的到服务器的最大连接数。
+默认值: 1
 
       interface
 
-Interface IP to bind to. Use 0.0.0.0 to listen on any available interface.
-Default: 127.0.0.1
+要绑定到的接口IP。使用0.0.0.0可以侦听任何可用的接口。
+默认值: 127.0.0.1
 
       external_ip
 
-If you running the server behind a NAT, it is a good idea to put your real IP here.
-This will help clients to establish data connections.
-Default: 0.0.0.0
+如果你在 NAT 后面运行服务器，那么把你的真实IP放在这里。
+这将帮助客户端建立数据连接。
+默认值: 0.0.0.0
 
       local_mask
 
-IP mask for local network.
-This will help the server to distinguish between local and Internet clients.
-Default: 255.255.255.0
+本地网络的 IP 掩码。
+有助于服务器区分本地客户端和Internet客户端。
+默认值: 255.255.255.0
 
       minport
       maxport
 
-Port range for data connections. You can use it to configurate port forwarding on your gateway device.
-Default: 1024..65535
+数据连接的端口范围。你可以使用它在网关设备上配置端口转发。
+默认值: 1024..65535
 
       logfilepath
 
-Full path with file name for a log file. Comment or delete it to disable logging.
-Default: disabled
+日志文件的带有文件名的完整路径。注释或删除它以禁用日志记录。
+默认值: disabled
 
       CATrustFile
 
-It is recommended to leave this option as it is (/etc/ssl/certs/ca-certificates.crt)
+建议保留此选项（/etc/ssl/certs/ca-certs.crt）
 
       ServerCertificate
 
-Path to your SSL certificate. Accepted format is x509 ASCII PEM.
+SSL证书的路径。接受的格式为 x509 ASCII PEM。
 
       Keyfile
 
-Path to PEM private key file for your certificate.
+证书的PEM私钥文件的路径。
 
       KeyfilePassword
 
-Password to decrypt private key.
+用于解密私钥的密码。
 
       keepalive
 
-Send keepalive packets (some NATs may require this).
-Default: 0 (disabled)
+发送 keepalive 数据包（某些NAT可能需要这样做）。
+默认值: 0 (已禁用)
 
 
 # User sections
 
-Note for "accs" field:
+“accs”字段注释：
 
       banned
 
-not allowed to log in
+不允许登录
 
       readonly
 
-just read directories and download files
+只允许读取目录和下载文件
 
       upload
 
-creating new directories, store new files. Append, rename and delete disabled.
+创建新目录，存储新文件。Append、rename and delete已禁用。
       
       admin
 
-all the features enabled.
+所有已启用的功能。
 
-Note for "pswd" field:
-pswd=* means "any password is match"
+注意"pswd"字段：pswd=* 表示"任何密码都匹配"
 
-Example of configuration file can be found in Source directory as fftp.conf.
+配置文件的示例可以在源目录中以 fftp.conf 的形式找到。
 
 # Build 
 
-* LightFTP comes with full source code, written in C;
-* In order to build from source in Windows you need Cygwin environment (https://www.cygwin.com/) with GNU make, gnutls and pthreads packages installed. Also make sure Cygwin bin folder is set in system wide PATH variable (e.g. PATH=SomeOfYourOtherValues;C:\Cygwin\bin;C:\Cygwin\usr\bin). To build executable run make command in the Release directory;
-* In order to build from source in Linux you need GCC C compiler, run make command in the Release directory. LigthFTP uses GnuTLS, make sure you have headers (libgnutls-dev or gnutls-dev) installed.
+* LightFTP 提供了完整的源代码，用 C 编写；
+* 为了在Windows中从源代码构建，您需要 Cygwin 环境(https://www.cygwin.com/)安装了 GNU make、gnutls 和 pthreads 包。还要确保 Cygwin-bin 文件夹设置在系统范围的PATH 变量中（例如PATH=SomeOfYourOtherValues；C:\Cygwin\bin；C:\Cygwin/usr/bin）。要构建可执行文件，请在 Release 目录中运行 make 命令；
+* 为了在 Linux 中从源代码构建，您需要 GCC C编译器，请在 elease 目录中运行 make 命令。LigthFTP 使用 GnuTLS，请确保安装了头文件（libgnutls-dev或GnuTLS-dev）。
 
 ### Example for Linux Mint 19.3/Ubuntu 18.04
 
-You need GCC and Make installed. If they are not installed you can install them as part of build-essential package:
+您需要安装 GCC 和 Make。如果没有安装它们，您可以将它们作为构建基本包的一部分进行安装：
 
       sudo apt install build-essential
       
-LightFTP uses GnuTLS library. It need to be installed before compiling LightFTP. To install it, open terminal and use:
+LightFTP 使用 GnuTLS 库。在编译 LightFTP 之前需要安装它。要安装它，请打开终端并使用：
 
       sudo apt install gnutls-dev
 	  
-or if this doesn't work try:
+或者，如果不起作用，请尝试：
 
       sudo apt install libgnutls28-dev  
       
-You can download source from https://github.com/hfiref0x/LightFTP/releases or use git. 
+您可以从下载源 https://github.com/hfiref0x/LightFTP/releases 或者使用 git。
 
-In case if you want to use git and git is not installed, install it first:
+如果您想使用 git，但没有安装 git，请先安装：
 
       sudo apt install git
       
-Next use the following:
+接下来使用以下内容:
 
       git clone https://github.com/hfilef0x/lightftp
       cd lightftp/Source/Release
       make
       
-Result binary is fftp. Next setup ftp config, example config file is Bin/fftp.conf. Set port, accounts, path to log file (optionally if you need it), path to certificates if you want to use them, etc.
+在此目录下你可以得到可运行二进制文件 fftp。下一步设置 ftp 配置，配置文件为 Bin/fftp.conf。设置端口、帐户、日志文件路径（如果需要，可以选择）、证书路径（如果要使用）等。
 
 # Old Windows version
 
-Since 2.2 old Windows unmaintained version moved to the separate archive repository, https://github.com/hfiref0x/LightFTP_win.
+由于2.2旧的 Windows 未维护版本移到了单独的归档存储库，https://github.com/hfiref0x/LightFTP_win.
 
 # Changelog
 
