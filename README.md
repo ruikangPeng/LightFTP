@@ -102,7 +102,7 @@ SSL证书的路径。接受的格式为 x509 ASCII PEM。
 # Build 
 
 * LightFTP 提供了完整的源代码，用 C 编写；
-* 为了在Windows中从源代码构建，您需要 Cygwin 环境(https://www.cygwin.com/)安装了 GNU make、gnutls 和 pthreads 包。还要确保 Cygwin-bin 文件夹设置在系统范围的PATH 变量中（例如PATH=SomeOfYourOtherValues；C:\Cygwin\bin；C:\Cygwin/usr/bin）。要构建可执行文件，请在 Release 目录中运行 make 命令；
+* 为了在Windows中从源代码构建，您需要 Cygwin 环境 (https://www.cygwin.com/) 安装了 GNU make、gnutls 和 pthreads 包。还要确保 Cygwin-bin 文件夹设置在系统范围的PATH 变量中（例如PATH=SomeOfYourOtherValues；C:\Cygwin\bin；C:\Cygwin/usr/bin）。要构建可执行文件，请在 Release 目录中运行 make 命令；
 * 为了在 Linux 中从源代码构建，您需要 GCC C编译器，请在 elease 目录中运行 make 命令。LigthFTP 使用 GnuTLS，请确保安装了头文件（libgnutls-dev或GnuTLS-dev）。
 
 ### Example for Linux Mint 19.3/Ubuntu 18.04
