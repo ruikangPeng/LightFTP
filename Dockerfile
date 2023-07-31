@@ -3,6 +3,7 @@ FROM ubuntu:latest
 RUN ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && \
     echo "Asia/Shanghai" > /etc/timezone
 
+
 # 安装依赖
 RUN apt-get -y update && \
 	apt-get -y install sudo \
@@ -34,6 +35,4 @@ WORKDIR /home/ubuntu
 RUN cd /home/ubuntu && \
     git clone https://github.com/ruikangPeng/LightFTP.git && \
     cd LightFTP/Source/Release && \
-    CC=clang make clean all && \
-	cd LightFTP/Source/Release && \
-	rm *.o
+    CC=clang make clean all
