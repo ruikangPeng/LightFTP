@@ -204,20 +204,20 @@ int config_parse(
  */
 char *config_init(char *cfg_filename)
 {
-	int		f_config;							//保存配置文件的文件描述符
-	char	*buffer = NULL;						//用于存储配置文件的内容
-	off_t	fsz;								//用于保存配置文件的大小
+	int		f_config;			//保存配置文件的文件描述符
+	char	*buffer = NULL;				//用于存储配置文件的内容
+	off_t	fsz;					//用于保存配置文件的大小
 
 	f_config = open(cfg_filename, O_RDONLY);	//使用 open 函数以只读方式打开文件，并将文件描述符保存在 f_config 中
 	while (f_config != -1)
 	{
 		fsz = lseek(f_config, 0L, SEEK_END) + 1;// 使用 lseek 函数将文件指针移到文件末尾，并获取文件大小
-		lseek(f_config, 0L, SEEK_SET);			//使用 lseek 函数将文件指针移到文件开头，以准备读取文件内容
+		lseek(f_config, 0L, SEEK_SET);		//使用 lseek 函数将文件指针移到文件开头，以准备读取文件内容
 
-		buffer = x_malloc(fsz);					//使用 x_malloc 函数分配内存，大小为文件大小加 1 字节，用于存储配置文件内容
+		buffer = x_malloc(fsz);			//使用 x_malloc 函数分配内存，大小为文件大小加 1 字节，用于存储配置文件内容
 
-		fsz = read(f_config, buffer, fsz);		//使用 read 函数读取配置文件内容，并将其存储在 buffer 指针指向的内存中。fsz 变量将被更新为实际读取的字节数。
-		buffer[fsz] = 0;						//在读取的内容末尾添加空字符，以将其转换为 C 风格的字符串
+		fsz = read(f_config, buffer, fsz);	//使用 read 函数读取配置文件内容，并将其存储在 buffer 指针指向的内存中。fsz 变量将被更新为实际读取的字节数。
+		buffer[fsz] = 0;			//在读取的内容末尾添加空字符，以将其转换为 C 风格的字符串
 		break;
 	}
 
