@@ -21,6 +21,7 @@ RUN apt-get -y update && \
 	build-essential \
 	openssl \
 	gnutls-dev \
+	tcpdump \
 	telnet
 	
 # 添加一个新用户 ubuntu，pass:ubuntu
